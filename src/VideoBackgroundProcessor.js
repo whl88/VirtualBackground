@@ -17,9 +17,12 @@ export default class VideoBackgroundProcessor extends Event{
       mediaStreamTrack: stream.getVideoTracks()[0],
     })
 
-    if (!this.processor && this.videoTrack) { // 初始化 processor
+    if (!this.processor) { // 初始化 processor
       this.processor = extension.createProcessor();
       await this.processor.init("./assets/wasms");
+    }
+    
+    if(this.videoTrack){
       this.videoTrack.pipe(this.processor).pipe(this.videoTrack.processorDestination);
     }
   }
